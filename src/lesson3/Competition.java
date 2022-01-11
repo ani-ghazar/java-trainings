@@ -17,9 +17,9 @@ public class Competition {
         }
 
         if (winsOfteamA > winsOfteamB) {
-            System.out.printf("Winner is team A");
+            System.out.println("Winner is team A");
         } else {
-            System.out.printf("Winner is team B");
+            System.out.println("Winner is team B");
         }
     }
 }

@@ -6,6 +6,7 @@ public class FindPrimeNumber {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please, insert a number!");
         int number = scanner.nextInt();
 
         if(isPrimeNumber(number)) {
@@ -19,7 +20,7 @@ public class FindPrimeNumber {
 
     public static boolean isPrimeNumber(int number) {
         int count = 0;
-        for (int i =1; i<number/2; i++) {
+        for (int i =2; i<number/2; i++) {
             if (number % i == 0) {
                 count++;
             }

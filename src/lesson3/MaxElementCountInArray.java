@@ -9,6 +9,7 @@ public class MaxElementCountInArray {
             System.out.print("Array is empty");
             return;
         }
+
         int max = arr[0];
         int count = 1;
         for (int i = 1; i < arr.length; i++) {

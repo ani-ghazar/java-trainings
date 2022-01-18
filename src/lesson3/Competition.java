@@ -6,20 +6,13 @@ public class Competition {
         int[] teamA = {2, 3, 4, 7, 1};
         int[] teamB = {1, 3, 5, 6, 1};
 
-        int winsOfteamA = 0;
-        int winsOfteamB = 0;
+        int winsOfTeamA = 0;
+        int winsOfTeamB = 0;
         for (int i = 0; i <teamA.length; i++) {
-            if (teamA[i] > teamB[i]) {
-                winsOfteamA++;
-            } else {
-                winsOfteamB++;
-            }
+            int i1 = teamA[i] > teamB[i] ? winsOfTeamA++ : winsOfTeamB++;
         }
 
-        if (winsOfteamA > winsOfteamB) {
-            System.out.println("Winner is team A");
-        } else {
-            System.out.println("Winner is team B");
-        }
+        System.out.println((winsOfTeamA > winsOfTeamB) ? "Winner is Team A" : "Winner is Team B");
+
     }
 }

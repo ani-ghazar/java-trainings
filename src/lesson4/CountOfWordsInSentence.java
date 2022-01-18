@@ -15,6 +15,15 @@ public class CountOfWordsInSentence {
             if (!splittedSentence[i].matches("\\d.*\\d")) {
                 count++;
             }
+
+            /**
+             * Checks whether the uppercase and lowercase of the string are equal.
+             * If it is than it’s a number or special character.
+             */
+
+//            if (splittedSentence[i].toLowerCase() == splittedSentence[i].toUpperCase()) {
+//                count++;
+//            }
         }
 
         System.out.println(count);

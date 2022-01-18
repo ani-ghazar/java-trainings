@@ -5,12 +5,12 @@ public class FindPrimeNumbersInArray {
     public static void main(String[] args) {
         int[] arr1 = {101, 12, 22, 98, 32, 23, 55, 101, 123, 45, 55, 45, 111};
         int[] arr2 = new int[arr1.length];
-        int size = 0;
+        int sizeOfArr2 = 0;
 
         for (int i = 0; i < arr1.length; i++) {
             if (FindPrimeNumber.isPrimeNumber(arr1[i])) {
-                arr2[size] = arr1[i];
-                size++;
+                arr2[sizeOfArr2] = arr1[i];
+                sizeOfArr2++;
             }
         }
 

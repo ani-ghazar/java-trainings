@@ -19,18 +19,14 @@ public class FindPrimeNumber {
     }
 
     public static boolean isPrimeNumber(int number) {
-        int count = 0;
-        for (int i =2; i<number/2; i++) {
+        for (int i =2; i<Math.sqrt(number); i++) {
+            System.out.println("I was here");
             if (number % i == 0) {
-                count++;
+                return false;
             }
         }
 
-        if (count == 0) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
 }

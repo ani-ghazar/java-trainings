@@ -4,16 +4,16 @@ public class NetSalaryCalculator {
 
     public static void main(String[] args) {
         int grossSalary = 750000;
-        boolean isITField = false;
+        boolean isITField = true;
 
         double incomeTax = incomeTaxOfGrossSalary(grossSalary, isITField);
-        System.out.println(incomeTax);
+        System.out.println("The income tax of the given salary is " + incomeTax);
 
         double socialFee = socialFeeOfGrossSalary(grossSalary);
-        System.out.println(socialFee);
+        System.out.println("The social fee of the given salary is " + socialFee);
 
         double stampFee = stampFeeOfGrossSalary(grossSalary);
-        System.out.println(stampFee);
+        System.out.println("The stamp fee of the given salary is " + stampFee);
 
         double netSalary = grossSalary - incomeTax - socialFee - stampFee;
         System.out.println("Net salary is " + netSalary);
@@ -22,45 +22,19 @@ public class NetSalaryCalculator {
 
     public static double incomeTaxOfGrossSalary(int grossSalary, boolean isITField) {
 
-        if (isITField) {
-            return grossSalary * 0.1;
-        }
-
-        return grossSalary * 0.21;
+        return isITField ? grossSalary * 0.1 : grossSalary * 0.21;
     }
 
     public static double socialFeeOfGrossSalary(int grossSalary) {
 
-        if (grossSalary <= 500000) {
-            return grossSalary * 0.045;
-        }
-
-        if (grossSalary <= 1020000) {
-            return grossSalary * 0.1 - 27500;
-        }
-
-        return 74500;
+        return grossSalary <= 500000 ? grossSalary * 0.045 :
+                (grossSalary <= 1020000 ? grossSalary * 0.1 - 27500 : 74500);
     }
 
     public static double stampFeeOfGrossSalary(int grossSalary) {
 
-        if (grossSalary <= 100000) {
-            return 1500;
-        }
-
-        if (grossSalary <= 200000) {
-            return 3000;
-        }
-
-        if (grossSalary <= 500000) {
-            return 5500;
-        }
-
-        if (grossSalary <= 1000000) {
-            return 8500;
-        }
-
-        return 15000;
+        return grossSalary <= 100000 ? 1500 : (grossSalary <= 200000 ? 3000 :
+                (grossSalary <= 500000 ? 5500 : (grossSalary <= 1000000 ? 8500 : 15000)));
     }
 
 }

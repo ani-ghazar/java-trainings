@@ -9,7 +9,7 @@ public class NetSalaryCalculatorUnitTests {
     @Test
     public void testMinimalSalaryFunctionality() {
 
-        boolean minimalSalary = NetSalaryCalculator.isConsideredAsMinimalSalary(25000);
+        boolean minimalSalary = NetSalaryCalculator.isMinimalSalary(25000);
         Assert.assertEquals(minimalSalary, true, "25000 is lower than a minimal salary");
 
     }
@@ -25,7 +25,7 @@ public class NetSalaryCalculatorUnitTests {
     @Test
     public void testSocialFeeOfGrossSalary() {
 
-        double socialFee = NetSalaryCalculator.socialFeeOfGrossSalary(150000);
+        double socialFee = NetSalaryCalculator.socialTaxOfGrossSalary(150000, true, true);
         Assert.assertEquals(socialFee, true, "6750 is lower than a minimal salary");
 
     }
@@ -33,7 +33,7 @@ public class NetSalaryCalculatorUnitTests {
     @Test
     public void testStampFeeOfGrossSalary() {
 
-        double stampFee = NetSalaryCalculator.stampFeeOfGrossSalary(3000000);
+        double stampFee = NetSalaryCalculator.stampTaxOfGrossSalary(3000000);
         Assert.assertEquals(stampFee, true, "15000 is lower than a minimal salary");
 
     }

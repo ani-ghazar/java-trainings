@@ -4,16 +4,18 @@ public class NetSalaryCalculator {
 
     public static void main(String[] args) {
 
-        int grossSalary = 20000;
-        boolean isITField = false;
+        int grossSalary = 1050000;
+        boolean isITField = true;
 
         double incomeTax = incomeTaxOfGrossSalary(grossSalary, isITField);
         System.out.println("The income tax of the given salary is " + incomeTax);
 
-        double socialFee = socialFeeOfGrossSalary(grossSalary);
+        boolean isParticipating = true;
+        boolean isJoinedVoluntarily = false;
+        double socialFee = socialTaxOfGrossSalary(grossSalary, isParticipating, isJoinedVoluntarily);
         System.out.println("The social fee of the given salary is " + socialFee);
 
-        double stampFee = stampFeeOfGrossSalary(grossSalary);
+        double stampFee = stampTaxOfGrossSalary(grossSalary);
         System.out.println("The stamp fee of the given salary is " + stampFee);
 
         double netSalary = grossSalary - incomeTax - socialFee - stampFee;
@@ -21,48 +23,101 @@ public class NetSalaryCalculator {
 
     }
 
-    public static boolean isConsideredAsMinimalSalary(int grossSalary) {
+    /**
+     *
+     * @param grossSalary The given gross salary
+     * @return true if the grossSalary is lower than the defined minimal salary, false otherwise
+     */
+    public static boolean isMinimalSalary(int grossSalary) {
 
-        if (grossSalary < 60000) {
-            return true;
-        }
-
-        return false;
+        return grossSalary < 68000 ? true : false;
     }
 
+    /**
+     *
+     * @param grossSalary The given gross salary
+     * @param isITField Boolean value to define whether the employee is from IT field, or no
+     * @return Income tax of the given gross salary
+     */
     public static double incomeTaxOfGrossSalary(int grossSalary, boolean isITField) {
 
         double incomeTax = 0;
 
-        if (!isConsideredAsMinimalSalary(grossSalary)) {
+        if (!isMinimalSalary(grossSalary)) {
             incomeTax = isITField ? grossSalary * 0.1 : grossSalary * 0.21;
         }
 
         return incomeTax;
     }
 
-    public static double socialFeeOfGrossSalary(int grossSalary) {
+    /**
+     *
+     * @param grossSalary The given gross salary
+     * @param isParticipating Boolean value to define whether the employee is participating in the rule, or no
+     * @param isJoinedVoluntarily Boolean value to define whether the employee joined voluntarily or mandatory
+     * @return Social tax of the given gross salary
+     */
+    public static double socialTaxOfGrossSalary(int grossSalary, boolean isParticipating, boolean isJoinedVoluntarily) {
 
-        double socialFee = 0;
+        double socialTax = 0;
 
-        if (!isConsideredAsMinimalSalary(grossSalary)) {
-            socialFee = grossSalary <= 500000 ? grossSalary * 0.045 :
-                    (grossSalary <= 1020000 ? grossSalary * 0.1 - 27500 : 74500);
+        if (!isMinimalSalary(grossSalary)) {
+            if (isParticipating) {
+                if (isJoinedVoluntarily) {
+                    socialTax = grossSalary < 1020000 ? grossSalary * 0.05 : 51000;
+                } else {
+                    socialTax = socialTaxOfMandatoryJoined(grossSalary);
+                }
+            }
         }
 
-        return socialFee;
+        return socialTax;
     }
 
-    public static double stampFeeOfGrossSalary(int grossSalary) {
+    /**
+     *
+     * @param grossSalary The given gross salary
+     * @return Mandatory social tax of the given gross salary
+     */
+    private static double socialTaxOfMandatoryJoined(int grossSalary) {
 
-        double stampFee = 0;
+        double socialTaxOfMandatoryJoined = 0;
 
-        if (!isConsideredAsMinimalSalary(grossSalary)) {
-            stampFee = grossSalary <= 100000 ? 1500 : (grossSalary <= 200000 ? 3000 :
-                    (grossSalary <= 500000 ? 5500 : (grossSalary <= 1000000 ? 8500 : 15000)));
+        if (grossSalary < 500000) {
+            socialTaxOfMandatoryJoined = grossSalary * 0.045;
+        } else if (grossSalary < 1020000) {
+            socialTaxOfMandatoryJoined = grossSalary * 0.1-27500;
+        } else {
+            socialTaxOfMandatoryJoined = 74500;
         }
 
-        return stampFee;
+        return socialTaxOfMandatoryJoined;
+
+    }
+
+    /**
+     *
+     * @param grossSalary The given gross salary
+     * @return Stamp tax of the given gross salary
+     */
+
+    public static double stampTaxOfGrossSalary(int grossSalary) {
+
+        double stampTax = 0;
+
+        if (grossSalary <= 100000) {
+            stampTax = 1500;
+        } else if (grossSalary <= 200000) {
+            stampTax = 3000;
+        } else if (grossSalary <= 500000) {
+            stampTax = 5500;
+        } else if(grossSalary <= 1000000) {
+            stampTax = 8500;
+        } else {
+            stampTax = 15000;
+        }
+
+        return stampTax;
     }
 
 }

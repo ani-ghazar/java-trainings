@@ -4,13 +4,13 @@ public class NetSalaryCalculator {
 
     public static void main(String[] args) {
 
-        int grossSalary = 1050000;
-        boolean isITField = true;
+        int grossSalary = 550000;
+        boolean isITField = false;
 
         double incomeTax = incomeTaxOfGrossSalary(grossSalary, isITField);
         System.out.println("The income tax of the given salary is " + incomeTax);
 
-        boolean isParticipating = true;
+        boolean isParticipating = false;
         boolean isJoinedVoluntarily = false;
         double socialFee = socialTaxOfGrossSalary(grossSalary, isParticipating, isJoinedVoluntarily);
         System.out.println("The social fee of the given salary is " + socialFee);
@@ -30,7 +30,8 @@ public class NetSalaryCalculator {
      */
     public static boolean isMinimalSalary(int grossSalary) {
 
-        return grossSalary < 68000 ? true : false;
+        int minimalSalary = 68000;
+        return grossSalary <= minimalSalary ? true : false;
     }
 
     /**
@@ -42,9 +43,11 @@ public class NetSalaryCalculator {
     public static double incomeTaxOfGrossSalary(int grossSalary, boolean isITField) {
 
         double incomeTax = 0;
+        double grossSalaryInITField = grossSalary * 0.1;
+        double grossSalaryOutOfITField = grossSalary * 0.21;
 
         if (!isMinimalSalary(grossSalary)) {
-            incomeTax = isITField ? grossSalary * 0.1 : grossSalary * 0.21;
+            incomeTax = isITField ? grossSalaryInITField : grossSalaryOutOfITField;
         }
 
         return incomeTax;
@@ -61,10 +64,14 @@ public class NetSalaryCalculator {
 
         double socialTax = 0;
 
+        int socialTaxBound = 1020000;
+        double floatingTaxOfVoluntarilyJoined = grossSalary * 0.05;
+        double fixedTaxOfVoluntarilyJoined = 51000;
+
         if (!isMinimalSalary(grossSalary)) {
             if (isParticipating) {
                 if (isJoinedVoluntarily) {
-                    socialTax = grossSalary < 1020000 ? grossSalary * 0.05 : 51000;
+                    socialTax = grossSalary < socialTaxBound ? floatingTaxOfVoluntarilyJoined : fixedTaxOfVoluntarilyJoined;
                 } else {
                     socialTax = socialTaxOfMandatoryJoined(grossSalary);
                 }
@@ -83,16 +90,22 @@ public class NetSalaryCalculator {
 
         double socialTaxOfMandatoryJoined = 0;
 
-        if (!isMinimalSalary(grossSalary)) {
+        if (isMinimalSalary(grossSalary)) {
             return socialTaxOfMandatoryJoined;
         }
 
-        if (grossSalary < 500000) {
-            socialTaxOfMandatoryJoined = grossSalary * 0.045;
-        } else if (grossSalary < 1020000) {
-            socialTaxOfMandatoryJoined = grossSalary * 0.1-27500;
+        int socialTaxBound1 = 500000;
+        double socialTaxForBound1 = grossSalary * 0.045;
+        int socialTaxBound2 = 1020000;
+        double socialTaxForBound2 = grossSalary * 0.1-27500;
+        double socialTaxForBound3 = 74500;
+
+        if (grossSalary < socialTaxBound1) {
+            socialTaxOfMandatoryJoined = socialTaxForBound1;
+        } else if (grossSalary < socialTaxBound2) {
+            socialTaxOfMandatoryJoined = socialTaxForBound2;
         } else {
-            socialTaxOfMandatoryJoined = 74500;
+            socialTaxOfMandatoryJoined = socialTaxForBound3;
         }
 
         return socialTaxOfMandatoryJoined;
@@ -109,20 +122,30 @@ public class NetSalaryCalculator {
 
         double stampTax = 0;
 
-        if(!isMinimalSalary(grossSalary)) {
+        if(isMinimalSalary(grossSalary)) {
             return stampTax;
         }
 
-        if (grossSalary <= 100000) {
-            stampTax = 1500;
-        } else if (grossSalary <= 200000) {
-            stampTax = 3000;
-        } else if (grossSalary <= 500000) {
-            stampTax = 5500;
-        } else if(grossSalary <= 1000000) {
-            stampTax = 8500;
+        int stampTaxBound1 = 100000;
+        double stampTaxForBound1 = 1500;
+        int stampTaxBound2 = 200000;
+        double stampTaxForBound2 = 3000;
+        int stampTaxBound3 = 500000;
+        double stampTaxForBound3 = 5500;
+        int stampTaxBound4 = 1000000;
+        double stampTaxForBound4 = 8500;
+        double stampTaxForBound5 = 15000;
+
+        if (grossSalary <= stampTaxBound1) {
+            stampTax = stampTaxForBound1;
+        } else if (grossSalary <= stampTaxBound2) {
+            stampTax = stampTaxForBound2;
+        } else if (grossSalary <= stampTaxBound3) {
+            stampTax = stampTaxForBound3;
+        } else if(grossSalary <= stampTaxBound4) {
+            stampTax = stampTaxForBound4;
         } else {
-            stampTax = 15000;
+            stampTax = stampTaxForBound5;
         }
 
         return stampTax;

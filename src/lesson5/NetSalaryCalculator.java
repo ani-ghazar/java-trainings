@@ -83,6 +83,10 @@ public class NetSalaryCalculator {
 
         double socialTaxOfMandatoryJoined = 0;
 
+        if (!isMinimalSalary(grossSalary)) {
+            return socialTaxOfMandatoryJoined;
+        }
+
         if (grossSalary < 500000) {
             socialTaxOfMandatoryJoined = grossSalary * 0.045;
         } else if (grossSalary < 1020000) {
@@ -104,6 +108,10 @@ public class NetSalaryCalculator {
     public static double stampTaxOfGrossSalary(int grossSalary) {
 
         double stampTax = 0;
+
+        if(!isMinimalSalary(grossSalary)) {
+            return stampTax;
+        }
 
         if (grossSalary <= 100000) {
             stampTax = 1500;
